@@ -36,7 +36,7 @@ class DSTMultiWozData:
         assert self.add_prefix in [True, False]
         self.add_special_decoder_token = add_special_decoder_token
         assert self.add_special_decoder_token in [True, False]
-
+        self.cfg = cfg
         self.tokenizer = tokenizer
         print ('Original Tokenizer Size is %d' % len(self.tokenizer))
         self.special_token_list = self.add_sepcial_tokens()
