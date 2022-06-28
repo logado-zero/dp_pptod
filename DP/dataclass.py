@@ -14,7 +14,7 @@ all_sos_token_list = ['<sos_b>', '<sos_a>', '<sos_r>']
 all_eos_token_list = ['<eos_b>', '<eos_a>', '<eos_r>']
 
 class DSTMultiWozData:
-    def __init__(self, model_name, tokenizer, data_path_prefix, shuffle_mode='shuffle_session_level', 
+    def __init__(self, model_name, tokenizer, cfg, data_path_prefix, shuffle_mode='shuffle_session_level', 
         data_mode='train',use_db_as_input=True, add_prefix=True, add_special_decoder_token=True, train_data_ratio=1.0):
         '''
             model_name: t5-small or t5-base or t5-large

@@ -180,7 +180,7 @@ if __name__ == '__main__':
     from config import Config
     cfg = Config(args.data_path_prefix)
 
-    data = DSTMultiWozData(args.model_name, tokenizer, args.data_path_prefix, shuffle_mode=args.shuffle_mode, 
+    data = DSTMultiWozData(args.model_name, tokenizer, cfg, args.data_path_prefix, shuffle_mode=args.shuffle_mode, 
                           data_mode='train', use_db_as_input=use_db_as_input, train_data_ratio=args.train_data_ratio)
 
     print ('Data loaded')                      
@@ -348,7 +348,7 @@ if __name__ == '__main__':
             print ('Current Result: ' + one_dev_str)
             print ('Best Result: ' + max_dev_str)
 
-            
+
 
             print ('dev evaluation finished.')
         print ('-----------------------------------------')
