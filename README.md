@@ -3,6 +3,8 @@
 
 Code of our PPTOD paper: [Multi-Task Pre-Training for Plug-and-Play Task-Oriented Dialogue System](https://arxiv.org/pdf/2109.14739.pdf)
 
+The base of this code was taken from [github.com/awslabs/pptod](https://github.com/awslabs/pptod/tree/ea177d7e3474d02cd7967e6dd2cce0e72a1b39fc). 
+
 ### News:
 * [2022/02/24] PPTOD is accepted to the main conference of ACL 2022!
 * [2021/09/29] PPTOD is publicly released!
