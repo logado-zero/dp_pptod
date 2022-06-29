@@ -1,5 +1,5 @@
 CUDA_VISIBLE_DEVICES=0,1 python ../../../learn.py\
-    --data_path_prefix ../../../../data/multiwoz/data/multi-woz-fine-processed/\
+    --data_path_prefix ../../../../data/multiwoz/data\
     --model_name t5-small\
     --pretrained_path ../../../../checkpoints/small/\
     --ckpt_save_path ../../../ckpt/small/full_training/\

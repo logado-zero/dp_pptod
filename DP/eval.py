@@ -106,6 +106,7 @@ class MultiWozEvaluator(object):
         self.cfg.use_true_curr_bspn = False
         self.cfg.use_true_curr_aspn = False
         self.cfg.same_eval_act_f1_as_hdsa = False
+        self.cfg.eval_per_domain = False
 
     def value_similar(self, a,b):
         return True if a==b else False

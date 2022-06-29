@@ -79,7 +79,7 @@ class DSTMultiWozData:
 
         import json
         if data_mode == 'train':
-            train_json_path = data_path_prefix + '/multiwoz-fine-processed-train.json'
+            train_json_path = data_path_prefix + '/multi-woz-fine-processed/multiwoz-fine-processed-train.json'
             with open(train_json_path) as f:
                 train_raw_data = json.load(f)
 
@@ -114,14 +114,14 @@ class DSTMultiWozData:
         else:
             raise Exception('Wrong Data Mode!!!')
 
-        dev_json_path = data_path_prefix + '/multiwoz-fine-processed-dev.json'
+        dev_json_path = data_path_prefix + '/multi-woz-fine-processed/multiwoz-fine-processed-dev.json'
         with open(dev_json_path) as f:
             dev_raw_data = json.load(f)
         print ('Tokenizing raw dev data...')
         dev_data_id_list = self.tokenize_raw_data(dev_raw_data)
         self.dev_data_list = self.flatten_data(dev_data_id_list)
 
-        test_json_path = data_path_prefix + '/multiwoz-fine-processed-test.json'
+        test_json_path = data_path_prefix + '/multi-woz-fine-processed/multiwoz-fine-processed-test.json'
         with open(test_json_path) as f:
             test_raw_data = json.load(f)
         print ('Tokenizing raw test data...')
@@ -417,6 +417,7 @@ class DSTMultiWozData:
         res_dict['user'] = self.parse_id_to_text(one_instance['user'])
         res_dict['aspn'] = self.parse_id_to_text(one_instance['aspn'])
         res_dict['aspn_reform'] = self.parse_id_to_text(one_instance['aspn_reform'])
+        res_dict['dspn'] = self.parse_id_to_text(one_instance['dspn'])
         previous_context = one_instance['prev_context']
         curr_user_input = one_instance['user']
 
