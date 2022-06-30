@@ -292,7 +292,7 @@ if __name__ == '__main__':
             dev_precision, dev_recall, dev_f1 = metric_result[0]['act_precision'], metric_result[0]['act_recall'], metric_result[0]['act_f1']
 
             print ('Precision: %2.2f  Recall: %2.2f  F1: %2.2f  ' % (dev_precision, dev_recall, dev_f1))
-            one_dev_str = 'dev_f1_{}'.format(round(dev_f1,2))
+            one_dev_str = 'dev_precision_{}_recall_{}_f1_{}'.format(round(dev_precision,2),round(dev_recall,2),round(dev_f1,2))
 
             if dev_f1 > max_dev_f1:
                 max_dev_str = one_dev_str
