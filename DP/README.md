@@ -1,57 +1,13 @@
-# Dialogue State Tracking
+# Dialogue Policy
 
 ### 1. Model checkpoints of the full training experiments:
 
-|               | PPTOD-small         |PPTOD-base|PPTOD-large|
+|               | Precision        |Recall |F1-score|
 |:-------------:|:-------------:|:-----:|:-----:|
-| Model Checkpoints | [full-train-small](https://pptod.s3.amazonaws.com/DST/epoch_3_best_ckpt.zip) | [full-train-base](https://pptod.s3.amazonaws.com/DST/epoch_4_best_ckpt.zip) |[full-train-large](https://pptod.s3.amazonaws.com/DST/epoch_10_best_ckpt.zip)|
-| Joint Accuracy |51.50% |53.37%|53.89%|
+| PPTOD-small |56.27% |53.46%|54.83%|
 
-Download and unzip the pretrained checkpoint under the "./ckpt/X/full_training/" directory. 
 
-Here, X is in ['small', 'base', 'large']. 
-
-Alternatively, you can run the following commands to download the trained models.
-
-#### (1) Downloading Pre-trained PPTOD-small Checkpoint:
-```yaml
-cd ckpt
-chmod +x ./download_DST_PPTOD_small.sh
-./download_DST_PPTOD_small.sh
-```
-
-#### (2) Downloading Pre-trained PPTOD-base Checkpoint:
-```yaml
-cd ckpt
-chmod +x ./download_DST_PPTOD_base.sh
-./download_DST_PPTOD_base.sh
-```
-
-#### (3) Downloading Pre-trained PPTOD-large Checkpoint:
-```yaml
-cd ckpt
-chmod +x ./download_DST_PPTOD_large.sh
-./download_DST_PPTOD_large.sh
-```
-
-### 2. Perform inference using pretrained checkpoints:
-```yaml
-cd ./sh_folder/X/inference/ 
-chmod +x ./pptod_X_full_training_inference.sh
-./pptod_X_full_training_inference.sh
-```
-**[Note]** If you need our model's predictions, we also provide the predicted results of our models under the "./inference_result/X/full_training/" directory.
-
-Here, X is in ['small', 'base', 'large'] and some key parameters are described below:
-
-```yaml
---pretrained_path: The path that stores the model from training. Should be the same value as the 
-                   --ckpt_save_path argument in the training script.
-                   
---output_save_path: The directory to save the predicted result.
-```
-
-### 3. Training
+### 2. Training
 To train a new model, you can use the provided scripts.
 
 ```yaml
