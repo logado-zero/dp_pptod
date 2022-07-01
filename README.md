@@ -45,82 +45,7 @@ If you find our paper and resources useful, please kindly cite our paper:
 ```
 
 ## Example Usage:
-In the following, we provide an example of how to use PPTOD to address different TOD tasks **without fine-tuning on any downstream task!** We assume you have downloaded the pptod-small checkpoint and have it in the "./checkpoints/small/" directory (you can find instructions below).
-```python
-# load the pre-trained PPTOD-small
-import torch
-from transformers import T5Tokenizer
-model_path = r'./checkpoints/small/'
-tokenizer = T5Tokenizer.from_pretrained(model_path)
-from E2E_TOD.modelling.T5Model import T5Gen_Model
-from E2E_TOD.ontology import sos_eos_tokens
-special_tokens = sos_eos_tokens
-model = T5Gen_Model(model_path, tokenizer, special_tokens, dropout=0.0, 
-        add_special_decoder_token=True, is_training=False)
-model.eval()
-```
-```python
-# prepare some pre-defined tokens and task-specific prompts
-sos_context_token_id = tokenizer.convert_tokens_to_ids(['<sos_context>'])[0]
-eos_context_token_id = tokenizer.convert_tokens_to_ids(['<eos_context>'])[0]
-pad_token_id, sos_b_token_id, eos_b_token_id, sos_a_token_id, eos_a_token_id, \
-sos_r_token_id, eos_r_token_id, sos_ic_token_id, eos_ic_token_id = \
-tokenizer.convert_tokens_to_ids(['<_PAD_>', '<sos_b>', 
-'<eos_b>', '<sos_a>', '<eos_a>', '<sos_r>','<eos_r>', '<sos_d>', '<eos_d>'])
-bs_prefix_text = 'translate dialogue to belief state:'
-bs_prefix_id = tokenizer.convert_tokens_to_ids(tokenizer.tokenize(bs_prefix_text))
-da_prefix_text = 'translate dialogue to dialogue action:'
-da_prefix_id = tokenizer.convert_tokens_to_ids(tokenizer.tokenize(da_prefix_text))
-nlg_prefix_text = 'translate dialogue to system response:'
-nlg_prefix_id = tokenizer.convert_tokens_to_ids(tokenizer.tokenize(nlg_prefix_text))
-ic_prefix_text = 'translate dialogue to user intent:'
-ic_prefix_id = tokenizer.convert_tokens_to_ids(tokenizer.tokenize(ic_prefix_text))
-```
-```python
-# an example dialogue context
-dialogue_context = "<sos_u> can i reserve a five star place for thursday night at 3:30 for 2 people <eos_u> <sos_r> i'm happy to assist you! what city are you dining in? <eos_r> <sos_u> seattle please. <eos_u>"
-context_id = tokenizer.convert_tokens_to_ids(tokenizer.tokenize(dialogue_context))
-```
-```python
-# predict belief state 
-input_id = bs_prefix_id + [sos_context_token_id] + context_id + [eos_context_token_id]
-input_id = torch.LongTensor(input_id).view(1, -1)
-x = model.model.generate(input_ids = input_id, decoder_start_token_id = sos_b_token_id,
-            pad_token_id = pad_token_id, eos_token_id = eos_b_token_id, max_length = 128)
-print (model.tokenized_decode(x[0]))
-# the predicted result is
-# <sos_b> [restaurant] rating five star date thursday night start time 3:30 number of people 2 city seattle <eos_b>
-```
-```python
-# predict dialogue act
-input_id = da_prefix_id + [sos_context_token_id] + context_id + [eos_context_token_id]
-input_id = torch.LongTensor(input_id).view(1, -1)
-x = model.model.generate(input_ids = input_id, decoder_start_token_id = sos_a_token_id,
-            pad_token_id = pad_token_id, eos_token_id = eos_a_token_id, max_length = 128)
-print (model.tokenized_decode(x[0]))
-# the predicted result is
-# <sos_a> [restaurant] [inform] restaurant name rating [multiple_choice] restaurant name <eos_a>
-```
-```python
-# predict system response
-input_id = nlg_prefix_id + [sos_context_token_id] + context_id + [eos_context_token_id]
-input_id = torch.LongTensor(input_id).view(1, -1)
-x = model.model.generate(input_ids = input_id, decoder_start_token_id = sos_r_token_id,
-            pad_token_id = pad_token_id, eos_token_id = eos_r_token_id, max_length = 128)
-print (model.tokenized_decode(x[0]))
-# the predicted result is 
-# <sos_r> ok, let me find some options for you. <eos_r>
-```
-```python
-# predict user intent
-input_id = ic_prefix_id + [sos_context_token_id] + context_id + [eos_context_token_id]
-input_id = torch.LongTensor(input_id).view(1, -1)
-x = model.model.generate(input_ids = input_id, decoder_start_token_id = sos_ic_token_id,
-            pad_token_id = pad_token_id, eos_token_id = eos_ic_token_id, max_length = 128)
-print (model.tokenized_decode(x[0]))
-# the predicted result is 
-# <sos_d> [book_restaurant] <eos_d>
-```
+
  
 ### 1. Environment Setup:
 ```yaml
@@ -167,14 +92,11 @@ The detailed instruction for preparing the pre-training corpora and the data of 
 To pre-train a PPTOD model from scratch, please refer to details provided in ./Pretraining directory.
 
 ### 5. Benchmark TOD Tasks:
-#### (1) End-to-End Dialogue Modelling:
-To perform End-to-End Dialogue Modelling using PPTOD, please refer to details provided in ./E2E_TOD directory. 
 
-#### (2) Dialogue State Tracking:
+
+#### (1) Dialogue Policy:
 To perform Dialogue State Tracking using PPTOD, please refer to details provided in ./DST directory. 
 
-#### (3) Intent Classification:
-To perform Intent Classification using PPTOD, please refer to details provided in ./IC directory. 
 
 
 ## Security
